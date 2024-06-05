@@ -10,7 +10,7 @@ interface Props {
 
 const NavbarItems = ({ logo, text, link, handleMenu }: Props) => {
   return (
-    <div className="w-full bg-gray-800/40 hover:bg-gray-800 h-max rounded-lg text-sm text-gray-200 mb-5" onClick={handleMenu}>
+    <div className="w-full bg-gray-800/40 hover:bg-gray-800 h-max rounded-lg text-xs text-gray-200 mb-5" onClick={handleMenu}>
       <Link to={link} className="flex items-center gap-3 w-full h-full p-3">
         {logo}
         <p>{text}</p>

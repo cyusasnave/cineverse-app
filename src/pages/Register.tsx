@@ -124,7 +124,7 @@ const Register = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <div
-              className="absolute right-5 top-2"
+              className="absolute right-5 top-2 cursor-pointer"
               onClick={() => setPasswordVisible((prev) => !prev)}
             >
               {passwordVisible ? (

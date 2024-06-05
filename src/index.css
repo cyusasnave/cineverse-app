@@ -12,7 +12,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gradient-to-b from-transparent to-sky-950/50 rounded-xl;
+  @apply bg-gradient-to-b from-transparent to-black rounded-xl;
 }
 
 body {
@@ -37,7 +37,7 @@ body {
   }
   .footer-card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   }
 }
 

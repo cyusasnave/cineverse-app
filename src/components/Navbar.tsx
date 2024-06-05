@@ -16,7 +16,7 @@ import { toast } from "sonner";
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const [showlogo, setShowlogo] = useState(false);
+  const [showlogo, setShowlogo] = useState(true);
   const navigate = useNavigate();
 
   const handleMenu = () => {
@@ -31,10 +31,10 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY < 300) {
-        setShowlogo(true);
-      } else {
+      if (window.scrollY > 300) {
         setShowlogo(false);
+      } else {
+        setShowlogo(true);
       }
     };
 
@@ -59,7 +59,10 @@ const Navbar = () => {
         <Menu />
       </button>
       {showMenu ? (
-        <div className="fixed top-0 right-0 w-[320px] transition ease-in-out delay-150 bg-gray-950 h-screen px-8 rounded-l-xl">
+        <div
+          className="fixed top-0 right-0 w-[320px] transition ease-in-out delay-150 border-l border-gray-800 bg-black h-screen px-8"
+          data-aos="flip-left"
+        >
           <div className="py-5">
             <button
               onClick={handleMenu}
@@ -103,7 +106,7 @@ const Navbar = () => {
             <div className="w-full h-max text-xs flex flex-col justify-end items-center gap-5 my-5 md:my-10">
               <p className="text-center">Want to logout?</p>
               <button
-                className="px-7 py-2 text-sm rounded-md bg-red-700"
+                className="px-7 py-2 text-xs rounded-md bg-red-900"
                 onClick={HandleLogout}
               >
                 Logout

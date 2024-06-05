@@ -22,4 +22,18 @@ export const movies = [
     duration: "2h",
     year: 2024,
   },
+  {
+    name: "Atlas",
+    image: "https://pbs.twimg.com/media/GNjZTmqXcAA7IC9.jpg:large",
+    genres: "Sci-fi/Action",
+    duration: "2h",
+    year: 2024,
+  },
+  {
+    name: "Atlas",
+    image: "https://pbs.twimg.com/media/GNjZTmqXcAA7IC9.jpg:large",
+    genres: "Sci-fi/Action",
+    duration: "2h",
+    year: 2024,
+  },
 ];

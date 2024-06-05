@@ -7,7 +7,6 @@ import closedEye from "../assets/closed-eye.png";
 import Button from "../components/Button";
 import { API } from "../utils/api";
 import useToken from "../hooks/useToken";
-import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import IconLoader from "../components/Icon/IconLoader";
 
@@ -25,7 +24,7 @@ const Login = () => {
   const [formdata, setFormdata] = useState(initialFormData);
   const [state, setState] = useState(initialState);
   const { saveAccessToken } = useToken();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const login = {
@@ -48,8 +47,8 @@ const Login = () => {
       });
       setFormdata(initialFormData);
       saveAccessToken(res.data?.token);
-      navigate("/");
       toast.success(res.data?.message);
+      window.location.replace('/') ;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setState((prev) => ({
@@ -89,7 +88,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <div
-              className="absolute right-5 top-2"
+              className="absolute right-5 top-2 cursor-pointer"
               onClick={() => setPasswordVisible((prev) => !prev)}
             >
               {passwordVisible ? (

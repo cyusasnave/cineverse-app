@@ -4,7 +4,7 @@ import logoName from "../assets/logoName.png";
 
 const Footer = () => {
   return (
-    <div className="w-full h-[900px] relative">
+    <div className="w-full h-[900px] relative" data-aos="fade-up" data-aos-duration="2000">
       <img src={creedFooterImage} className="w-full h-full object-cover" />
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent" />
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black to-transparent" />

@@ -1,17 +1,32 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { DynamicData } from "../../../@types/DynamicTypes";
-import { movies } from "../../../Data/movieData";
-import { CalendarRange, Timer } from 'lucide-react';
+import { CalendarRange, Timer } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useFetcher } from "../../../utils/api";
+import loader from "../../../assets/loader.gif";
+// import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { initialMovies } from "../../../redux/features/movieSlice";
+import { toast } from "sonner";
 
 const Hero = () => {
   const progressCircle = useRef(null);
   const progressContent = useRef(null);
+  const [movieData, setMovieData] = useState([]);
+  const { isLoading, isError, data } = useFetcher("/movies");
+  const dipatch = useDispatch();
+
+  useEffect(() => {
+    if (data) {
+      setMovieData(data.movies.rows);
+      dipatch(initialMovies(data.movies.rows));
+    }
+  }, [data, dipatch]);
 
   const onAutoplayTimeLeft = (
     _s: DynamicData,
@@ -23,6 +38,20 @@ const Hero = () => {
     // @ts-expect-error ignore expected errors
     progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
   };
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <img src={loader} alt="loader" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    toast.error(isError.message);
+    return;
+  }
+
   return (
     <>
       <Swiper
@@ -40,33 +69,42 @@ const Hero = () => {
         onAutoplayTimeLeft={onAutoplayTimeLeft}
         className="w-full h-screen"
       >
-        {movies.map((movie) => (
-          <SwiperSlide
-            key={movie.name}
-            style={{
-              backgroundImage: `url(${movie.image})`,
-              backgroundPosition: "center",
-              backgroundSize: "cover",
-            }}
-            className="relative w-full h-full flex justify-center items-center"
-          >
-            <div className=" absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent" />
-            <div className=" absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/50 to-transparent" />
-            <div className="w-[70%] h-full flex flex-col justify-center items-start gap-8 z-50">
-              <h1 className="text-5xl font-bold">{movie.name}</h1>
-              <div className="text-xs text-gray-300 font-light flex flex-wrap items-center gap-5">
-                <div>{movie.genres}</div>
-                <div className="flex gap-1 items-center"><CalendarRange size={18} color="red" />{movie.year}</div>
-                <div className="flex gap-1 items-center"><Timer size={18} color="red" />{movie.duration}</div>
+        {movieData &&
+          movieData.map((movie: DynamicData) => (
+            <SwiperSlide
+              key={movie.id}
+              style={{
+                backgroundImage: `url(${movie.image})`,
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+              }}
+              className="relative w-full h-full flex justify-center items-center"
+            >
+              <div className=" absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent" />
+              <div className=" absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/50 to-transparent" />
+              <div className="w-[70%] h-full flex flex-col justify-center items-center md:items-start gap-8 z-50">
+                <h1 className="text-5xl font-bold">{movie.title}</h1>
+                <div className="text-xs text-gray-300 font-light flex flex-wrap items-center gap-5">
+                  <div>{movie.genres}</div>
+                  <div className="flex gap-1 items-center">
+                    <CalendarRange size={18} color="red" />
+                    {movie.releaseYear}
+                  </div>
+                  <div className="flex gap-1 items-center">
+                    <Timer size={18} color="red" />
+                    {movie.duration}
+                  </div>
+                </div>
+                <div>
+                  <Link to={"/users"}>
+                    <button className="px-7 py-2 text-sm rounded-md bg-red-700">
+                      Watch now
+                    </button>
+                  </Link>
+                </div>
               </div>
-              <div>
-                <Link to={"/users"}>
-                  <button className="px-7 py-2 text-sm rounded-md bg-red-700">Watch now</button>
-                </Link>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
+            </SwiperSlide>
+          ))}
 
         <div className="autoplay-progress" slot="container-end">
           <svg viewBox="0 0 48 48" ref={progressCircle}>
