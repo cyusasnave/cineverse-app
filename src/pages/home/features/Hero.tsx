@@ -8,11 +8,11 @@ import { DynamicData } from "../../../@types/DynamicTypes";
 import { CalendarRange, Timer } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useFetcher } from "../../../utils/api";
-import loader from "../../../assets/loader.gif";
 // import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { initialMovies } from "../../../redux/features/movieSlice";
 import { toast } from "sonner";
+import Loader from "../../../components/cards/Loader";
 
 const Hero = () => {
   const progressCircle = useRef(null);
@@ -49,12 +49,11 @@ const Hero = () => {
     progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
   };
 
+
   return (
     <>
       {isLoading ? (
-        <div className="w-full h-screen flex items-center justify-center">
-          <img src={loader} alt="loader" />
-        </div>
+        <Loader />
       ) : (
         <Swiper
           spaceBetween={30}
@@ -87,7 +86,14 @@ const Hero = () => {
                 <div className="w-[70%] h-full flex flex-col justify-center items-center md:items-start gap-8 z-50">
                   <h1 className="text-5xl font-bold">{movie.title}</h1>
                   <div className="text-xs text-gray-300 font-light flex flex-wrap items-center gap-5">
-                    <div>{movie.genres}</div>
+                    <div>
+                      {movie.genres.map(
+                        (genre: DynamicData, index: number) =>
+                          `${genre.name}${
+                            index == (movie.genres.length - 1 ) ? "" : "/"
+                          }`
+                      )}
+                    </div>
                     <div className="flex gap-1 items-center">
                       <CalendarRange size={18} color="red" />
                       {movie.releaseYear}
@@ -98,7 +104,7 @@ const Hero = () => {
                     </div>
                   </div>
                   <div>
-                    <Link to={"/users"}>
+                    <Link to={`/movies/${movie.id}`}>
                       <button className="px-7 py-2 text-sm rounded-md bg-red-700">
                         Watch now
                       </button>

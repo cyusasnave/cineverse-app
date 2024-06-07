@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { DynamicData } from "../../../@types/DynamicTypes";
-import loader from "../../../assets/loader.gif";
 import { RootState } from "../../../redux/store";
 import { Search } from "lucide-react";
 import MovieCard from "../../../components/cards/MovieCard";
 import dataNotFounfGif from "../../../assets/page-not-found.gif";
 import { Link } from "react-router-dom";
+import Loader from "../../../components/cards/Loader";
 
 const HomeMovie = () => {
   const movies = useSelector((state: RootState) => state.movies.data[0]);
@@ -52,9 +52,7 @@ const HomeMovie = () => {
   return (
     <>
       {isLoading ? (
-        <div className="w-full h-screen flex items-center justify-center">
-          <img src={loader} alt="loader" />
-        </div>
+        <Loader />
       ) : (
         <div className="p-5 flex flex-col justify-center items-center gap-7" data-aos="fade-up" data-aos-duration="1500">
           <h1 className="text-3xl md:text-5xl w-full font-bold text-center text-gray-500">

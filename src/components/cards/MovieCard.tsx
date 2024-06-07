@@ -37,7 +37,7 @@ const MovieCard: React.FC<Props> = ({
             </p>
             <Link to={`/movies/${id}`}>
               <button className="px-7 py-2 text-xs rounded-md bg-red-900">
-                Watch now
+                Explore
               </button>
             </Link>
           </div>

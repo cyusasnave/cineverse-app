@@ -3,6 +3,7 @@ import {
   Clapperboard,
   Film,
   HandHelping,
+  Home,
   Menu,
   TrendingUp,
   X,
@@ -31,7 +32,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 300) {
+      if (window.scrollY > 100) {
         setShowlogo(false);
       } else {
         setShowlogo(true);
@@ -73,6 +74,12 @@ const Navbar = () => {
           </div>
           <br />
           <div className="relative h-[80%] flex flex-col justify-center md:gap-3">
+            <NavbarItems
+              link="/"
+              logo={<Home />}
+              text="Home"
+              handleMenu={handleMenu}
+            />
             <NavbarItems
               link=""
               logo={<Film />}

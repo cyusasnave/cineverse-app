@@ -7,6 +7,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import DefaultLayout from "./layouts/DefaultLayout";
+import SingleMovie from "./pages/movie/SingleMovie";
 
 function App() {
   useEffect(() => {
@@ -18,6 +19,9 @@ function App() {
       <Routes>
         <Route path="/" element={<DefaultLayout />}>
           <Route index element={<Home />} />
+          <Route path="movies">
+            <Route path=":id" element={<SingleMovie />} />
+          </Route>
         </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
