@@ -3,13 +3,14 @@ import registerLogin from "../assets/registerLoginBG.jpg";
 import googleIcon from "../assets/google-icon.png";
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
+import Button from "./Button";
 
 interface Props {
   children: ReactNode;
   text: string;
   buttonText: string;
   location: string;
-  formText: string
+  formText: string;
 }
 
 const RegisterLogin: React.FC<Props> = ({
@@ -17,7 +18,7 @@ const RegisterLogin: React.FC<Props> = ({
   text,
   buttonText,
   location,
-  formText
+  formText,
 }) => {
   return (
     <div
@@ -39,19 +40,27 @@ const RegisterLogin: React.FC<Props> = ({
               Cine<span className="text-pink-950">Verse</span>
             </h1>
             <p className="text-xs leading-5 font-light text-gray-400 py-5">
-               {formText}
+              {formText}
             </p>
             {children}
+            <Link to={"/"} className="mt-5 w-full">
+              <Button
+                type="button"
+                text="Cancel"
+                width="w-full"
+                color="bg-red-800/50 hover:bg-red-800"
+              />
+            </Link>
           </div>
         </div>
         <div className="register-container px-5 flex-col text-xs font-light items-center justify-center h-full">
           <div className="w-full h-max">
             <div className="p-5 text-gray-400/80 text-center">
-              Welcome to CineVerse: Your ultimate movie hub! Dive into a curated
-              world of blockbusters, classics, and hidden gems. With personalized
-              recommendations and easy navigation, CineVerse brings the magic of
-              cinema to your screen. Join us for an unforgettable movie
-              experience!
+              Welcome to CineVerse: Your ultimate destination for the latest and
+              greatest in the world of movies! Here, we are passionate about
+              bringing the magic of cinema to your screen with a comprehensive
+              collection of movie trailers, cast information, and in-depth
+              descriptions.
             </div>
             <div className="w-full bg-white/75 hover:bg-white py-2 flex justify-center items-center text-black gap-4 rounded-lg mb-5 cursor-pointer">
               <img src={googleIcon} alt="google icon" width={25} />

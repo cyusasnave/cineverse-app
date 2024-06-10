@@ -95,13 +95,12 @@ const HomeMovie = () => {
           </div>
           <div className="w-[90%] footer-card-container gap-y-10 place-items-center bg-gradient-to-b from-gray-700/20 to-transparent rounded-[50px] p-10">
             {movieData.length > 0 ? (
-              movieData.map((movie: DynamicData) => (
+              movieData.slice(0, 6).map((movie: DynamicData) => (
                 <MovieCard
                   key={movie.id}
                   id={movie.id}
                   title={movie.title}
                   image={movie.poster}
-                  description={movie.description}
                   duration={movie.duration}
                 />
               ))

@@ -1,13 +1,12 @@
 // import { useState } from "react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import closedEye from "../assets/closed-eye.png";
 import openEye from "../assets/open-eye.png";
 import Button from "../components/Button";
 import IconLoader from "../components/Icon/IconLoader";
 import RegisterLogin from "../components/RegisterLogin";
 import useToken from "../hooks/useToken";
-import UnprotectedLayout from "../layouts/UnprotectedLayout";
 import { API } from "../utils/api";
 import { toast } from "sonner";
 
@@ -29,7 +28,7 @@ const Register = () => {
   const [formdata, setFormdata] = useState(initialFormData);
   const [state, setState] = useState(initialState);
   const { saveAccessToken } = useToken();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const register = {
@@ -53,8 +52,10 @@ const Register = () => {
       });
       setFormdata(initialFormData);
       saveAccessToken(res.data?.token);
-      navigate("/");
       toast.success(res.data.message);
+      setTimeout(() => {
+        window.location.replace("/");
+      }, 300);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setState((prev) => ({
@@ -70,7 +71,7 @@ const Register = () => {
   };
 
   return (
-    <UnprotectedLayout>
+    <>
       <RegisterLogin
         text="Have an account?"
         buttonText="SIGNIN"
@@ -162,7 +163,7 @@ const Register = () => {
           />
         </form>
       </RegisterLogin>
-    </UnprotectedLayout>
+    </>
   );
 };
 

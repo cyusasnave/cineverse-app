@@ -1,18 +1,17 @@
-import { useEffect, useRef, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { DynamicData } from "../../../@types/DynamicTypes";
 import { CalendarRange, Timer } from "lucide-react";
-import { Link } from "react-router-dom";
-import { useFetcher } from "../../../utils/api";
-// import { toast } from "sonner";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { initialMovies } from "../../../redux/features/movieSlice";
+import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { DynamicData } from "../../../@types/DynamicTypes";
 import Loader from "../../../components/cards/Loader";
+import { initialMovies } from "../../../redux/features/movieSlice";
+import { useFetcher } from "../../../utils/api";
 
 const Hero = () => {
   const progressCircle = useRef(null);
@@ -29,13 +28,7 @@ const Hero = () => {
   }, [data, dipatch]);
 
   if (isError) {
-    if (isError.status === "UNAUTHORIZED") {
-      toast.error(isError.message);
-      window.location.replace("/login");
-      return;
-    } else {
-      toast.error(isError.message);
-    }
+    toast.error(isError.message);
   }
 
   const onAutoplayTimeLeft = (
@@ -48,7 +41,6 @@ const Hero = () => {
     // @ts-expect-error ignore expected errors
     progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
   };
-
 
   return (
     <>
@@ -68,7 +60,7 @@ const Hero = () => {
           navigation={true}
           modules={[Autoplay, Pagination, Navigation]}
           onAutoplayTimeLeft={onAutoplayTimeLeft}
-          className="w-full h-screen"
+          className="w-full h-screen overflow-x-hidden"
         >
           {movieData &&
             movieData.map((movie: DynamicData) => (
@@ -84,13 +76,13 @@ const Hero = () => {
                 <div className=" absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent" />
                 <div className=" absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/50 to-transparent" />
                 <div className="w-[70%] h-full flex flex-col justify-center items-center md:items-start gap-8 z-50">
-                  <h1 className="text-5xl font-bold">{movie.title}</h1>
+                  <h1 className="text-4xl md:text-5xl font-bold">{movie.title}</h1>
                   <div className="text-xs text-gray-300 font-light flex flex-wrap items-center gap-5">
                     <div>
                       {movie.genres.map(
                         (genre: DynamicData, index: number) =>
                           `${genre.name}${
-                            index == (movie.genres.length - 1 ) ? "" : "/"
+                            index == movie.genres.length - 1 ? "" : "/"
                           }`
                       )}
                     </div>
@@ -106,7 +98,7 @@ const Hero = () => {
                   <div>
                     <Link to={`/movies/${movie.id}`}>
                       <button className="px-7 py-2 text-sm rounded-md bg-red-700">
-                        Watch now
+                        Watch trailer
                       </button>
                     </Link>
                   </div>

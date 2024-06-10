@@ -1,5 +1,4 @@
 // import { useState } from "react";
-import UnprotectedLayout from "../layouts/UnprotectedLayout";
 import RegisterLogin from "../components/RegisterLogin";
 import React, { useEffect, useState } from "react";
 import openEye from "../assets/open-eye.png";
@@ -24,7 +23,6 @@ const Login = () => {
   const [formdata, setFormdata] = useState(initialFormData);
   const [state, setState] = useState(initialState);
   const { saveAccessToken } = useToken();
-  // const navigate = useNavigate();
 
   useEffect(() => {
     const login = {
@@ -48,7 +46,9 @@ const Login = () => {
       setFormdata(initialFormData);
       saveAccessToken(res.data?.token);
       toast.success(res.data?.message);
-      window.location.replace('/') ;
+      setTimeout(() => {
+        window.location.replace("/");
+      }, 300);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setState((prev) => ({
@@ -64,7 +64,7 @@ const Login = () => {
   };
 
   return (
-    <UnprotectedLayout>
+    <>
       <RegisterLogin
         text="Don't have an account?"
         buttonText="SIGNUP"
@@ -124,7 +124,7 @@ const Login = () => {
           />
         </form>
       </RegisterLogin>
-    </UnprotectedLayout>
+    </>
   );
 };
 
